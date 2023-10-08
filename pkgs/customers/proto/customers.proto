@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = "ecommerce_dashboard/customers/proto";
+
+message Customer {
+  string customer_id = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string address = 5;
+}
+
+message CreateCustomerRequest {
+  string email = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string address = 4;
+}
+
+message CreateCustomerResponse {
+  Customer customer = 1;
+}
+
+message GetCustomerByEmailRequest{
+  string email = 1;
+}
+
+message GetCustomerByEmailResponse{
+  Customer customer = 1;
+}
+
+message GetTopCustomersRequest{}
+
+message GetTopCustomersResponse{
+  repeated Customer topCustomers = 1;
+}
+
+service CustomerService {
+  rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
+  rpc GetCustomerByEmail (GetCustomerByEmailRequest) returns (GetCustomerByEmailResponse);
+  rpc GetTopCustomers(GetTopCustomersRequest) returns (GetTopCustomersResponse);
+}

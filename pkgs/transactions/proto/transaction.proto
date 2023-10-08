@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option go_package = "ecommerce_dashboard/pkgs/transaction/proto";
+
+message Transaction{
+  string id = 1;
+  string customer_id = 2;
+  string product_id = 3;
+  uint32 qty = 4;
+  double total_price = 5;
+}
+
+message CreateTransactionRequest {
+  string customer_id = 1;
+  string product_id = 2;
+  uint32 qty = 3;
+  double total_price = 4;
+}
+
+message CreateTransactionResponse{
+  Transaction transaction = 1;
+}
+
+message GetTransactionRequest {
+  string id = 1;
+}
+
+message GetTransactionResponse {
+  Transaction transaction = 1;
+}
+
+message StreamTransactionRequest {}
+
+//message StreamTransactionResponse {
+//  repeated Transaction transactions = 1;
+//}
+
+message GetTotalSalesRequest {}
+
+message GetTotalSalesResponse {
+  double total_sales = 1;
+}
+
+message GetTotalSalesByProductRequest {
+  string productId = 1;
+}
+
+message GetTotalSalesByProductResponse {
+  string productId = 1;
+  double total_sales = 2;
+}
+
+service TransactionService {
+  rpc CreateTransaction(CreateTransactionRequest) returns (CreateTransactionResponse);
+  rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse);
+  rpc StreamTransaction(StreamTransactionRequest) returns (stream Transaction);
+  rpc GetTotalSales(GetTotalSalesRequest) returns (GetTotalSalesResponse);
+  rpc GetTotalSalesByProduct(GetTotalSalesByProductRequest) returns (GetTotalSalesByProductResponse);
+}

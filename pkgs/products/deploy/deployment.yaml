@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-deployment
+  labels:
+    app: products-deployment
+spec:
+  selector:
+    matchLabels:
+      app: products-deployment
+  template:
+    metadata:
+      labels:
+        app: products-deployment
+    spec:
+      containers:
+        - name: products
+          image: docker.io/bazel/pkgs/products:image
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080

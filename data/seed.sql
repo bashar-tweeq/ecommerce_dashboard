@@ -1,0 +1,3 @@
+INSERT INTO customers (id, email, first_name, last_name, address) VALUES ('5e1444fe-10b7-4406-87da-d59d99ea9624', 'email@gmail.com', 'bashar', 'ali', 'earth');
+INSERT INTO products (id, title, price, qty) VALUES ('8ea6f6a5-d43f-4b53-9843-8e36ad46ff53', 'pc', 2599.99, 5);
+INSERT INTO transactions (id, customer_id, product_id, qty, total_price) VALUES ('2514b622-aa67-44b4-a0a7-3fb5a77efde4', '5e1444fe-10b7-4406-87da-d59d99ea9624', '8ea6f6a5-d43f-4b53-9843-8e36ad46ff53', 1, 2599.99);

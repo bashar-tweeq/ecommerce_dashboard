@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "ecommerce_dashboard/pkgs/product/proto";
+
+message Product {
+  string id = 1;
+  string title = 2;
+  double price = 3;
+  uint32 qty = 4;
+}
+
+message CreateProductRequest {
+  string title = 1;
+  double price = 2;
+  uint32 qty = 3;
+}
+
+message CreateProductResponse {
+  Product product = 1;
+}
+
+message GetProductByIdRequest {
+  string productId = 1;
+}
+
+message GetProductByIdResponse {
+  Product product = 1;
+}
+
+service ProductService {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+  rpc GetProduct(GetProductByIdRequest) returns (GetProductByIdResponse);
+}
