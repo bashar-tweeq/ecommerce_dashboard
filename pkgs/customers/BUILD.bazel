@@ -69,6 +69,7 @@ go_library (
         ":customers_go_proto",
         ":customers_service",
         "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//reflection",
         "@com_github_jackc_pgx_v5//:pgx",
         "@com_github_google_uuid//:uuid"
     ]

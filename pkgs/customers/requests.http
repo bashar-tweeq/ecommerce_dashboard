@@ -1,5 +1,4 @@
-###ecommerce_dashboard/pkgs/customers/v1
-GRPC localhost:8081/ecommerce_dashboard.pkgs.customers.v1.CustomerService/GetCustomerByEmail
+GRPC localhost:8081/customers.v1.CustomerService/GetCustomerByEmail
 
 {
   "email": "email@gmail.com"

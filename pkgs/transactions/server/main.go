@@ -3,16 +3,18 @@ package main
 import (
 	"context"
 	"ecommerce_dashboard/genproto/transaction/proto"
+
 	transactionv1 "ecommerce_dashboard/pkgs/transaction/v1"
 	"fmt"
 	"github.com/jackc/pgx/v5"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 )
 
 func main() {
-	port := "8083"
+	port := "8080"
 
 	conn, err := pgx.Connect(context.Background(), "postgresql://root@localhost:26257/defaultdb?sslmode=disable")
 
@@ -31,6 +33,7 @@ func main() {
 	s := grpc.NewServer()
 	proto.RegisterTransactionServiceServer(s, transactionv1.New(conn))
 	log.Printf("server lis at %v", lis.Addr())
+	reflection.Register(s)
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

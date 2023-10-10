@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+	"log"
 )
 
 type server struct {
@@ -33,6 +34,8 @@ func (s server) CreateCustomer(ctx context.Context, request *proto.CreateCustome
 }
 
 func (s server) GetCustomerByEmail(ctx context.Context, request *proto.GetCustomerByEmailRequest) (*proto.GetCustomerByEmailResponse, error) {
+	log.Printf("called GetCustomerByEmail: %v\n", request)
+	
 	cu, err := s.store.GetCustomerByEmail(ctx, request.Email)
 
 	if err != nil {
