@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"ecommerce_dashboard/genproto/products/proto"
+	"ecommerce_dashboard/pkgs/product/proto"
 	productsv1 "ecommerce_dashboard/pkgs/products/v1"
 	"fmt"
 	"github.com/jackc/pgx/v5"

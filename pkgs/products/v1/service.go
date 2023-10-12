@@ -2,7 +2,7 @@ package v1
 
 import (
 	"context"
-	"ecommerce_dashboard/genproto/products/proto"
+	"ecommerce_dashboard/pkgs/product/proto"
 	"ecommerce_dashboard/pkgs/products/store"
 	"fmt"
 	"github.com/google/uuid"

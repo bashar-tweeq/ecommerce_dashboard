@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "customers",
+    srcs = ["service.go"],
+    importpath = "ecommerce_dashboard/pkgs/customers/v1",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkgs/customers/proto",
+        "//pkgs/customers/store",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_jackc_pgx_v5//:pgx",
+    ],
+)

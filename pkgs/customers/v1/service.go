@@ -2,7 +2,7 @@ package v1
 
 import (
 	"context"
-	"ecommerce_dashboard/genproto/customers/proto"
+	"ecommerce_dashboard/pkgs/customers/proto"
 	"ecommerce_dashboard/pkgs/customers/store"
 	"fmt"
 	"github.com/google/uuid"
@@ -16,7 +16,7 @@ type server struct {
 func (s server) CreateCustomer(ctx context.Context, request *proto.CreateCustomerRequest) (*proto.CreateCustomerResponse, error) {
 	id := uuid.New()
 	cu, err := s.store.CreateCustomer(ctx, id, request.Email, request.FirstName, request.LastName, request.Address)
-	append()
+
 	if err != nil {
 		return nil, fmt.Errorf("error in service CreateCustomer:  %v", err)
 	}

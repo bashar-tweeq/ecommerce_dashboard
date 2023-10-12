@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "ecommerce_dashboard/customers/proto";
+option go_package = "ecommerce_dashboard/pkgs/customers/proto";
 
 message Customer {
   string customer_id = 1;

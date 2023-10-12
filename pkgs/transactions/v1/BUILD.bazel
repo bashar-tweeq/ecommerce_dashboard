@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "transactions",
+    srcs = ["service.go"],
+    importpath = "ecommerce_dashboard/pkgs/transactions/v1",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkgs/transactions/proto",
+        "//pkgs/transactions/store",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_jackc_pgx_v5//:pgx",
+    ],
+)

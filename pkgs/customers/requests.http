@@ -1,7 +1,7 @@
 GRPC localhost:8081/CustomerService/CreateCustomer
 
 {
-  "email": "potato2@gmail.com",
+  "email": "potatoGirl@gmail.com",
   "first_name": "test",
   "last_name": "test_last",
   "address": "tweeq"

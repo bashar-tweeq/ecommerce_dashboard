@@ -2,8 +2,8 @@ package v1
 
 import (
 	"context"
-	"ecommerce_dashboard/genproto/transaction/proto"
-	"ecommerce_dashboard/pkgs/transaction/store"
+	"ecommerce_dashboard/pkgs/transaction/proto"
+	"ecommerce_dashboard/pkgs/transactions/store"
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"

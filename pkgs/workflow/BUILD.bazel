@@ -1,16 +1,21 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "workflow",
+    name = "workflow_lib",
     srcs = [
         "activity.go",
-        "workflow.go"
+        "workflow.go",
     ],
-    importpath = "ecommerce_dashboard/workflow",
+    importpath = "ecommerce_dashboard/pkgs/workflow",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkgs/transactions:transaction_store",
-        "//pkgs/transactions:transaction_go_proto",
+        "//pkgs/customers/proto",
+        "//pkgs/customers/v1:customers",
+        "//pkgs/products/proto",
+        "//pkgs/products/v1:products",
+        "//pkgs/transactions/proto",
+        "//pkgs/transactions/store",
+        "//pkgs/transactions/v1:transactions",
         "@com_github_jackc_pgx_v5//:pgx",
         "@io_temporal_go_sdk//workflow",
     ],

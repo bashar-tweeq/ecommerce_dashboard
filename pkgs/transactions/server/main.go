@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"ecommerce_dashboard/genproto/transaction/proto"
+	"ecommerce_dashboard/pkgs/transaction/proto"
 
-	transactionv1 "ecommerce_dashboard/pkgs/transaction/v1"
+	transactionv1 "ecommerce_dashboard/pkgs/transactions/v1"
 	"fmt"
 	"github.com/jackc/pgx/v5"
 	"google.golang.org/grpc"
