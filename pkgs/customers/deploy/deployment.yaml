@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: customers
-          image: docker.io/bazel/pkgs/customers:image
+          image: bazel/pkgs/customers:image
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

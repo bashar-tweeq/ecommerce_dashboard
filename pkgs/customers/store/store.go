@@ -19,6 +19,7 @@ type Customer struct {
 type CustomerStore interface {
 	CreateCustomer(ctx context.Context, id uuid.UUID, email, firstName, lastName, address string) (*Customer, error)
 	GetCustomerByEmail(ctx context.Context, email string) (*Customer, error)
+	GetCustomerById(ctx context.Context, id string) (*Customer, error)
 	GetTopCustomers(ctx context.Context) ([]Customer, error)
 }
 
@@ -35,10 +36,14 @@ func (s store) CreateCustomer(ctx context.Context, id uuid.UUID, email, firstNam
            		address)
 				VALUES ($1, $2, $3, $4, $5)`
 
-	err := s.session.QueryRow(ctx, insertSql, id, email, firstName, lastName, address)
+	commandTag, err := s.session.Exec(ctx, insertSql, id, email, firstName, lastName, address)
 
 	if err != nil {
 		return nil, fmt.Errorf("error in creating customer: %v", err)
+	}
+
+	if commandTag.RowsAffected() != 1 {
+		return nil, errors.New(commandTag.String())
 	}
 
 	return &Customer{
@@ -52,7 +57,7 @@ func (s store) CreateCustomer(ctx context.Context, id uuid.UUID, email, firstNam
 
 func (s store) GetCustomerByEmail(ctx context.Context, email string) (*Customer, error) {
 	customer := &Customer{}
-	err := s.session.QueryRow(ctx, `SELECT * FROM customer WHERE email=$1`, email).Scan(
+	err := s.session.QueryRow(ctx, `SELECT * FROM customers WHERE email=$1`, email).Scan(
 		&customer.Id,
 		&customer.FirstName,
 		&customer.LastName,
@@ -69,6 +74,24 @@ func (s store) GetCustomerByEmail(ctx context.Context, email string) (*Customer,
 	return customer, nil
 }
 
+func (s store) GetCustomerById(ctx context.Context, id string) (*Customer, error) {
+	customer := &Customer{}
+	err := s.session.QueryRow(ctx, `SELECT * FROM customers WHERE id=$1`, id).Scan(
+		&customer.Id,
+		&customer.FirstName,
+		&customer.LastName,
+		&customer.Email,
+		&customer.Address)
+
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("error in store.GetCustomer: %v", err)
+	}
+
+	return customer, nil
+}
 func (s store) GetTopCustomers(ctx context.Context) ([]Customer, error) {
 	customers := []Customer{}
 	rows, err := s.session.Query(ctx, "select id, email, first_name, last_name, address from customers order by (select sum(total_price) from transactions where customer_id=id) limit $1", 5)

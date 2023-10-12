@@ -1,5 +1,22 @@
-GRPC localhost:8081/customers.v1.CustomerService/GetCustomerByEmail
+GRPC localhost:8081/CustomerService/CreateCustomer
 
 {
-  "email": "email@gmail.com"
+  "email": "potato2@gmail.com",
+  "first_name": "test",
+  "last_name": "test_last",
+  "address": "tweeq"
+}
+
+###
+GRPC localhost:8081/CustomerService/GetCustomerByEmail
+
+{
+  "email": "potato@gmail.com"
+}
+
+###
+GRPC localhost:8081/CustomerService/GetTopCustomers
+
+{
+
 }

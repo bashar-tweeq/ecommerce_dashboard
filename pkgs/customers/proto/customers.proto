@@ -29,6 +29,14 @@ message GetCustomerByEmailResponse{
   Customer customer = 1;
 }
 
+message GetCustomerByIdRequest{
+  string id = 1;
+}
+
+message GetCustomerByIdResponse{
+  Customer customer = 1;
+}
+
 message GetTopCustomersRequest{}
 
 message GetTopCustomersResponse{
@@ -38,5 +46,6 @@ message GetTopCustomersResponse{
 service CustomerService {
   rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
   rpc GetCustomerByEmail (GetCustomerByEmailRequest) returns (GetCustomerByEmailResponse);
+  rpc GetCustomerById (GetCustomerByIdRequest) returns (GetCustomerByIdResponse);
   rpc GetTopCustomers(GetTopCustomersRequest) returns (GetTopCustomersResponse);
 }

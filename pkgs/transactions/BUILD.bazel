@@ -68,6 +68,7 @@ go_library (
         ":transaction_go_proto",
         ":transaction_service",
         "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//reflection",
         "@com_github_google_uuid//:uuid",
         "@com_github_jackc_pgx_v5//:pgx"
     ]

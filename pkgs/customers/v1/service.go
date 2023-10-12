@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
-	"log"
 )
 
 type server struct {
@@ -17,7 +16,7 @@ type server struct {
 func (s server) CreateCustomer(ctx context.Context, request *proto.CreateCustomerRequest) (*proto.CreateCustomerResponse, error) {
 	id := uuid.New()
 	cu, err := s.store.CreateCustomer(ctx, id, request.Email, request.FirstName, request.LastName, request.Address)
-
+	append()
 	if err != nil {
 		return nil, fmt.Errorf("error in service CreateCustomer:  %v", err)
 	}
@@ -34,8 +33,6 @@ func (s server) CreateCustomer(ctx context.Context, request *proto.CreateCustome
 }
 
 func (s server) GetCustomerByEmail(ctx context.Context, request *proto.GetCustomerByEmailRequest) (*proto.GetCustomerByEmailResponse, error) {
-	log.Printf("called GetCustomerByEmail: %v\n", request)
-	
 	cu, err := s.store.GetCustomerByEmail(ctx, request.Email)
 
 	if err != nil {
@@ -43,6 +40,24 @@ func (s server) GetCustomerByEmail(ctx context.Context, request *proto.GetCustom
 	}
 
 	return &proto.GetCustomerByEmailResponse{
+		Customer: &proto.Customer{
+			CustomerId: cu.Id.String(),
+			Email:      cu.Email,
+			FirstName:  cu.FirstName,
+			LastName:   cu.LastName,
+			Address:    cu.Address,
+		},
+	}, nil
+}
+
+func (s server) GetCustomerById(ctx context.Context, request *proto.GetCustomerByIdRequest) (*proto.GetCustomerByIdResponse, error) {
+	cu, err := s.store.GetCustomerById(ctx, request.Id)
+
+	if err != nil {
+		return nil, fmt.Errorf("error in service GetCustomerById:  %v", err)
+	}
+
+	return &proto.GetCustomerByIdResponse{
 		Customer: &proto.Customer{
 			CustomerId: cu.Id.String(),
 			Email:      cu.Email,

@@ -2,14 +2,12 @@ package main
 
 import (
 	"context"
-	"ecommerce_dashboard/genproto/customers/proto"
+	pb "ecommerce_dashboard/genproto/customers/proto"
 	customersv1 "ecommerce_dashboard/pkgs/customers/v1"
 	"fmt"
 	"github.com/jackc/pgx/v5"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-
-	//"google.golang.org/grpc/reflection"
 	"log"
 	"net"
 	"os"
@@ -36,10 +34,10 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	proto.RegisterCustomerServiceServer(s, customersv1.New(conn))
+	pb.RegisterCustomerServiceServer(s, customersv1.New(conn))
 	reflection.Register(s)
 
-	log.Printf("server lis at %v", lis.Addr())
+	log.Printf("server listen at %v", lis.Addr())
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
