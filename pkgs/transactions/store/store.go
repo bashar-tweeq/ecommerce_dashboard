@@ -41,10 +41,14 @@ func (s store) CreateTransaction(ctx context.Context, id uuid.UUID, customerId, 
             		total_price)
 				VALUES ($1, $2, $3, $4, $5)`
 
-	err := s.session.QueryRow(ctx, insertSql, id, customerId, productId, qty, totalPrice)
+	commandTag, err := s.session.Exec(ctx, insertSql, id, customerId, productId, qty, totalPrice)
 
 	if err != nil {
-		return nil, fmt.Errorf("error in creating product: %v", err)
+		return nil, fmt.Errorf("error in creating transaction : %v", err)
+	}
+
+	if commandTag.RowsAffected() != 1 {
+		return nil, errors.New(commandTag.String())
 	}
 
 	return &Transaction{

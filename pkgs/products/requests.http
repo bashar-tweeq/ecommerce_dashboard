@@ -1,10 +1,9 @@
-GRPC localhost:8081/CustomerService/CreateCustomer
+GRPC localhost:8082/ProductService/CreateProduct
 
 {
-  "email": "potatoGirl@gmail.com",
-  "first_name": "test",
-  "last_name": "test_last",
-  "address": "tweeq"
+  "title": "potato",
+  "price": 20.0,
+  "qty": 200
 }
 
 ###

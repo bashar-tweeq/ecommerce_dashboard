@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 
 go_library(
     name = "server_lib",
@@ -10,11 +11,21 @@ go_library(
         "//pkgs/products/v1:products",
         "@com_github_jackc_pgx_v5//:pgx",
         "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//reflection",
     ],
 )
 
 go_binary(
     name = "server",
     embed = [":server_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_image(
+    name = "image",
+    base = "@go_base//image",
+    embed = [":server_lib"],
+    goarch = "amd64",
+    goos = "linux",
     visibility = ["//visibility:public"],
 )

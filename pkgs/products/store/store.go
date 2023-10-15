@@ -33,7 +33,15 @@ func (s store) CreateProduct(ctx context.Context, id uuid.UUID, title string, pr
             		qty)
 				VALUES ($1, $2, $3, $4)`
 
-	err := s.session.QueryRow(ctx, insertSql, id, title, price, qty)
+	commandTag, err := s.session.Exec(ctx, insertSql, id, title, price, qty)
+
+	if err != nil {
+		return nil, fmt.Errorf("error in creating product: %v", err)
+	}
+
+	if commandTag.RowsAffected() != 1 {
+		return nil, errors.New(commandTag.String())
+	}
 
 	if err != nil {
 		return nil, fmt.Errorf("error in creating product: %v", err)

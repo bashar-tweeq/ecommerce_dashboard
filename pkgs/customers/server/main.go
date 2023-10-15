@@ -37,7 +37,7 @@ func main() {
 	pb.RegisterCustomerServiceServer(s, customersv1.New(conn))
 	reflection.Register(s)
 
-	log.Printf("server listen at %v", lis.Addr())
+	log.Printf("server is now listening at %v", lis.Addr())
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

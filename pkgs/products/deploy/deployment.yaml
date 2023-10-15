@@ -15,7 +15,16 @@ spec:
     spec:
       containers:
         - name: products
-          image: docker.io/bazel/pkgs/products:image
+          image: bazel/pkgs/products/server:image
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          env:
+            - name: DATABASE_HOST
+              value: crdb-service
+            - name: DATABASE_PORT
+              value: "26250"
+            - name: DATABASE_USER
+              value: root
+            - name: DATABASE_PASSWORD
+              value: ""
